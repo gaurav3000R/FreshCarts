@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1033468624432",
+    "project_id": "fresh-carts",
+    "storage_bucket": "fresh-carts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033468624432:android:deaa36d2ba83166ec5b7f5",
+        "android_client_info": {
+          "package_name": "com.example.freshcarts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033468624432-s013o5sahvq1olqns1j8isqe0s82m20s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOWeAq2uDbmha8ta7QUO6ujSqmgjdCMN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033468624432-s013o5sahvq1olqns1j8isqe0s82m20s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
