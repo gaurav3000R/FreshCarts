@@ -3,7 +3,6 @@
     <string name="fresh_carts">Fresh Carts</string>
     <string name="Shape">shape</string>
     <string name="welcome_to_fresh_carts">Welcome to Fresh Carts</string>
-    <string name="todo">TODO</string>
     <string name="sign_in">SIGN IN</string>
     <string name="forget_password">Forget password</string>
     <string name="log_in">LOG IN</string>
@@ -39,6 +38,12 @@
     <string name="select_a_category">Select a category</string>
     <string name="see_more">See More</string>
     <string name="select_categories">Select Categories</string>
+    <string name="fruits">fruits</string>
+
+    <string name="recently_viewed_items">Recently Viewed Items</string>
+    <string name="all">all</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="todo">todoo</string>
 
 
 </resources>

@@ -59,6 +59,7 @@ public class AllCategory extends AppCompatActivity {
         allCategoryModelList.add(new AllCategoryModel(7, R.drawable.ic_drink));
         allCategoryModelList.add(new AllCategoryModel(8, R.drawable.ic_cookies));
         allCategoryModelList.add(new AllCategoryModel(8, R.drawable.ic_juce));
+        allCategoryModelList.add(new AllCategoryModel(10,R.drawable.ic_cookies));
 
 
         setCategoryRecycler(allCategoryModelList);

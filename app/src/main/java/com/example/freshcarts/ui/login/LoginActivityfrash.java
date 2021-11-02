@@ -10,8 +10,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.freshcarts.ForgetPasswordActivity;
 import com.example.freshcarts.Mainactivity3;
 import com.example.freshcarts.R;
+import com.example.freshcarts.homeactivity;
 import com.example.freshcarts.signup;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +28,7 @@ import java.util.EventListener;
 
 public class LoginActivityfrash extends AppCompatActivity {
 
-    Button signupbtn,loginbtn;
+    Button signupbtn,loginbtn,forgetpass;
     TextInputLayout username_var, password_var;
 
     @Override
@@ -38,8 +40,10 @@ public class LoginActivityfrash extends AppCompatActivity {
 
         signupbtn = findViewById(R.id.signup);
         loginbtn = findViewById(R.id.login);
-        username_var = findViewById(R.id.user_name_text_field);
+        username_var = findViewById(R.id.Email_text_field);
         password_var = findViewById(R.id.password_text_field);
+        forgetpass=findViewById(R.id.forgotBT);
+
 
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -83,9 +87,10 @@ public class LoginActivityfrash extends AppCompatActivity {
                                         password_var.setErrorEnabled(false);
                                         Toast.makeText(getApplicationContext(),"Login Successfull",Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(LoginActivityfrash.this,Mainactivity3.class);
-                                        startActivity(intent);
-                                        finish();
+//                                        Intent intent = new Intent(LoginActivityfrash.this,Mainactivity3.class);
+//                                        startActivity(intent);
+//                                        finish();
+
 
                                         loginbtn.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -133,6 +138,13 @@ public class LoginActivityfrash extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivityfrash.this, homeactivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -155,7 +167,10 @@ public class LoginActivityfrash extends AppCompatActivity {
 
 
 
+    }
 
-
+    public void forget(View view) {
+        Intent g = new Intent(LoginActivityfrash.this, ForgetPasswordActivity.class);
+        startActivity(g);
     }
 }
