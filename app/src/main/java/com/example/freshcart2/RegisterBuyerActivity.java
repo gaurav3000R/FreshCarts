@@ -119,7 +119,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //current location
                 if (checkLocationPermission()) {
-                    detectLocation();
+//                    detectLocation();
                 } else {
                     requestLocation();
                 }
@@ -376,7 +376,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                     boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (locationAccepted) {
                         //permission allowed
-                        detectLocation();
+//                        detectLocation();
                     } else {
                         //permission denied
                         Toast.makeText(this, "Location Permission is required...", Toast.LENGTH_SHORT).show();
@@ -412,21 +412,20 @@ public class RegisterBuyerActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void detectLocation() {
-        Toast.makeText(this, "Please Wait...", Toast.LENGTH_LONG).show();
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
+//    private void detectLocation() {
+//        Toast.makeText(this, "Please Wait...", Toast.LENGTH_LONG).show();
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
-    }
+//            return;
+//        }
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+//    }
 
     private boolean checkStoragePermission(){
         boolean result = ContextCompat.checkSelfPermission(this,
