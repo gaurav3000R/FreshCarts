@@ -17,4 +17,10 @@ public class Constants {
             "Frozen Food", "Fruits", "Pet Care", "pharmacy",
             "Vegetables", "Others"
     };
+
+    public static final String[] shopCategories = {
+            "All", "Manjalpur", "Nagarvada",
+            "Makarpura", "Maneja",
+            "Others"
+    };
 }

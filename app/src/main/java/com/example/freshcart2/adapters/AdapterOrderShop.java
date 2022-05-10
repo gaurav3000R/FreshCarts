@@ -60,7 +60,7 @@ public class AdapterOrderShop extends RecyclerView.Adapter<AdapterOrderShop.Hold
 
         loadUserInfo(modelOrderShop, holder);
 
-        holder.amountTv.setText("Amount: $"+orderCost);
+        holder.amountTv.setText("Amount: ₹"+orderCost);
         holder.orderStatusTv.setText(orderStatus);
         holder.orderIdTv.setText("Order ID: "+orderId);
         if (orderStatus.equals("In Progress")){

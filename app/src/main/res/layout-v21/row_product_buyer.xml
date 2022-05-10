@@ -68,11 +68,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/descriptionTV"
-                android:gravity="center_vertical"
                 android:drawableStart="@drawable/ic_cart_primary"
                 android:drawableLeft="@drawable/ic_cart_primary"
+                android:gravity="center_vertical"
                 android:text="Add to Cart"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="#FF9800" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -86,16 +86,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="$ 10"
+                    android:text="₹ 10"
                     android:textColor="@color/colorGray02" />
 
                 <TextView
                     android:id="@+id/orignalPriceTV"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/discountPriceTV"
                     android:layout_toRightOf="@id/discountPriceTV"
-                    android:layout_height="wrap_content"
-                    android:text="$ 20"
+                    android:text="₹ 20"
                     android:textColor="@color/colorGray02" />
 
             </RelativeLayout>

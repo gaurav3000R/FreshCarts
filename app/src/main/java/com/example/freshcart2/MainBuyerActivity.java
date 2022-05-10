@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.freshcart2.adapters.AdapterOrderUser;
 import com.example.freshcart2.adapters.AdapterShop;
-import com.example.freshcart2.models.ModelOrderUser;
 import com.example.freshcart2.models.ModelShop;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,17 +30,18 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class MainBuyerActivity extends AppCompatActivity {
+
     private TextView nameTv, emailTv, phoneTv, tabShopsTv, tabOrdersTv;
-    private ImageButton logoutBtn, editProfileBtn, cartBtn;
+    private ImageButton logoutBtn, editProfileBtn, cartBtn,locationBtn;
     private RelativeLayout shopRl, ordersRl;
     private ImageView profileIv;
     private RecyclerView shopRv, orderRv;
-
     FirebaseAuth mAuth;
     private ProgressDialog mProgressDialog;
 
-    private ArrayList<ModelOrderUser> orderList;
+    private ArrayList<com.example.freshcart2.models.ModelOrderUser> orderList;
     private AdapterOrderUser adapterOrderUser;
+
 
     private ArrayList<ModelShop> shopList;
     private AdapterShop adapterShop;
@@ -68,6 +70,7 @@ public class MainBuyerActivity extends AppCompatActivity {
         profileIv = findViewById(R.id.profileIV);
         shopRv = findViewById(R.id.shopRV);
         orderRv = findViewById(R.id.orderRv);
+        locationBtn = findViewById(R.id.locationBtn);
 
         showShopUI();
 
@@ -82,17 +85,16 @@ public class MainBuyerActivity extends AppCompatActivity {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainBuyerActivity.this, ProfileEditBuyerActivity.class));
+                startActivity(new Intent(MainBuyerActivity.this, com.example.freshcart2.ProfileEditBuyerActivity.class));
             }
         });
 
-//        cartBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainBuyerActivity.this, CartActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         tabShopsTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +107,27 @@ public class MainBuyerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showOrdersUI();
+            }
+        });
+        
+        locationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainBuyerActivity.this);
+                builder.setTitle("Choose Area:")
+                        .setItems(Constants.shopCategories, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String selected = Constants.shopCategories[which];
+//                                locationBtn.(selected);
+                                if (selected.equals("All")){
+//                                    loadShopProducts();
+                                }
+                                else {
+//                                    adapterProductBuyer.getFilter().filter(selected);
+                                }
+                            }
+                        }).show();
             }
         });
     }
@@ -134,7 +157,7 @@ public class MainBuyerActivity extends AppCompatActivity {
     private void checkUser() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null){
-            startActivity(new Intent(MainBuyerActivity.this, LoginActivity.class));
+            startActivity(new Intent(MainBuyerActivity.this, com.example.freshcart2.LoginActivity.class));
             finish();;
         }
         else {
@@ -194,7 +217,7 @@ public class MainBuyerActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()){
                                         for (DataSnapshot ds : dataSnapshot.getChildren()){
-                                            ModelOrderUser modelOrderUser = ds.getValue(ModelOrderUser.class);
+                                            com.example.freshcart2.models.ModelOrderUser modelOrderUser = ds.getValue(com.example.freshcart2.models.ModelOrderUser.class);
 
                                             orderList.add(modelOrderUser);
                                         }
@@ -220,7 +243,7 @@ public class MainBuyerActivity extends AppCompatActivity {
 
     private void loadShop(final String myCity) {
 
-        shopList = new ArrayList<>();
+        shopList = new ArrayList<com.example.freshcart2.models.ModelShop>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.orderByChild("accountType").equalTo("Seller")
                 .addValueEventListener(new ValueEventListener() {
@@ -228,16 +251,17 @@ public class MainBuyerActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         shopList.clear();
                         for (DataSnapshot ds: dataSnapshot.getChildren()){
-                            ModelShop modelShop = ds.getValue(ModelShop.class);
+                            com.example.freshcart2.models.ModelShop modelShop = ds.getValue(com.example.freshcart2.models.ModelShop.class);
 
 //                            String shopCity = ""+ds.child("city").getValue();
 
 //                            if (shopCity.equals(myCity)){
+//                                shopList.add(modelShop);
                             shopList.add(modelShop);
 //                            }
                         }
 
-                        adapterShop = new AdapterShop(MainBuyerActivity.this, shopList);
+                        adapterShop = new AdapterShop(MainBuyerActivity.this,shopList);
                         shopRv.setAdapter(adapterShop);
                     }
 

@@ -14,7 +14,6 @@ import com.example.freshcart2.models.ModelOrderedItems;
 
 import java.util.ArrayList;
 
-
 public class AdapterOrderedItem extends RecyclerView.Adapter<AdapterOrderedItem.HolderOrderedItem> {
 
     private Context context;

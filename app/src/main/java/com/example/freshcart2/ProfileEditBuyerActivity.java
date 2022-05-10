@@ -2,12 +2,12 @@ package com.example.freshcart2;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -30,7 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
+import com.example.freshcart2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -50,7 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class ProfileEditBuyerActivity extends AppCompatActivity {
+public class ProfileEditBuyerActivity extends AppCompatActivity implements LocationListener {
 
     //views
     ImageButton backBtn, gpsBtn;
@@ -62,10 +62,10 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
 
     //permission request code
     private static final int LOCATION_REQUEST_CODE = 100;
-    private static final int CAMERA_REQUEST_CODE = 200;
-    private static final int STORAGE_REQUEST_CODE = 300;
-    private static final int IMAGE_PICK_GALLERY_CODE = 400;
-    private static final int IMAGE_PICK_CAMERA_CODE = 500;
+    private static final int CAMERA_REQUEST_CODE =200;
+    private static final int STORAGE_REQUEST_CODE =300;
+    private static final int IMAGE_PICK_GALLERY_CODE =400;
+    private static final int IMAGE_PICK_CAMERA_CODE =500;
 
     private String[] locationPermission;
     private String[] cameraPermission;
@@ -79,12 +79,10 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
 
     private Uri image_uri;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit_buyer);
-
 
         backBtn = findViewById(R.id.backBtn);
         gpsBtn = findViewById(R.id.gpsBtn);
@@ -120,9 +118,9 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //current location
-                if (checkLocationPermission()) {
+                if (checkLocationPermission()){
                     detectLocation();
-                } else {
+                }else {
                     requestLocation();
                 }
             }
@@ -152,11 +150,11 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
         city = cityEt.getText().toString().trim();
         address = streetEt.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(name)){
             Toast.makeText(this, "Enter Name...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(phoneNumber)) {
+        if (TextUtils.isEmpty(phoneNumber)){
             Toast.makeText(this, "Enter Phone Number...", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -168,16 +166,16 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Updating Profile...");
         mProgressDialog.show();
 
-        if (image_uri == null) {
+        if (image_uri == null){
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("name", "" + name);
-            hashMap.put("phone", "" + phoneNumber);
-            hashMap.put("country", "" + country);
-            hashMap.put("state", "" + state);
-            hashMap.put("city", "" + city);
-            hashMap.put("address", "" + address);
-            hashMap.put("latitude", "" + latitude);
-            hashMap.put("longitude", "" + longitude);
+            hashMap.put("name",""+name);
+            hashMap.put("phone",""+phoneNumber);
+            hashMap.put("country",""+country);
+            hashMap.put("state",""+state);
+            hashMap.put("city",""+city);
+            hashMap.put("address",""+address);
+            hashMap.put("latitude",""+latitude);
+            hashMap.put("longitude",""+longitude);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
             ref.child(mAuth.getUid()).updateChildren(hashMap)
@@ -192,31 +190,32 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             mProgressDialog.dismiss();
-                            Toast.makeText(ProfileEditBuyerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileEditBuyerActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-        } else {
-            String filtPathAnsName = "profile_image/" + "" + mAuth.getUid();
+        }
+        else {
+            String filtPathAnsName = "profile_image/" + ""+ mAuth.getUid();
             StorageReference storageReference = FirebaseStorage.getInstance().getReference(filtPathAnsName);
             storageReference.putFile(image_uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!uriTask.isSuccessful()) ;
+                            while (!uriTask.isSuccessful());
                             Uri downlodImageUri = uriTask.getResult();
 
-                            if (uriTask.isSuccessful()) {
+                            if (uriTask.isSuccessful()){
                                 HashMap<String, Object> hashMap = new HashMap<>();
-                                hashMap.put("name", "" + name);
-                                hashMap.put("phone", "" + phoneNumber);
-                                hashMap.put("country", "" + country);
-                                hashMap.put("state", "" + state);
-                                hashMap.put("city", "" + city);
-                                hashMap.put("address", "" + address);
-                                hashMap.put("latitude", "" + latitude);
-                                hashMap.put("longitude", "" + longitude);
-                                hashMap.put("profileImage", "" + downlodImageUri);
+                                hashMap.put("name",""+name);
+                                hashMap.put("phone",""+phoneNumber);
+                                hashMap.put("country",""+country);
+                                hashMap.put("state",""+state);
+                                hashMap.put("city",""+city);
+                                hashMap.put("address",""+address);
+                                hashMap.put("latitude",""+latitude);
+                                hashMap.put("longitude",""+longitude);
+                                hashMap.put("profileImage",""+downlodImageUri);
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                                 ref.child(mAuth.getUid()).updateChildren(hashMap)
@@ -231,7 +230,7 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 mProgressDialog.dismiss();
-                                                Toast.makeText(ProfileEditBuyerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ProfileEditBuyerActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
@@ -241,7 +240,7 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             mProgressDialog.dismiss();
-                            Toast.makeText(ProfileEditBuyerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileEditBuyerActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -249,10 +248,11 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
 
     private void checkUser() {
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
+        if (user == null){
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
-        } else {
+        }
+        else{
             updateMyInfo();
         }
     }
@@ -263,20 +263,20 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            String accountType = "" + ds.child("accountType").getValue();
-                            String address = "" + ds.child("address").getValue();
-                            String city = "" + ds.child("city").getValue();
-                            String state = "" + ds.child("state").getValue();
-                            String country = "" + ds.child("country").getValue();
-                            String email = "" + ds.child("email").getValue();
-                            latitude = Double.parseDouble("" + ds.child("latitude").getValue());
-                            longitude = Double.parseDouble("" + ds.child("longitude").getValue());
-                            String name = "" + ds.child("name").getValue();
-                            String phone = "" + ds.child("phone").getValue();
-                            String profileImage = "" + ds.child("profileImage").getValue();
-                            String timestamp = "" + ds.child("timestamptimestamp").getValue();
-                            String uid = "" + ds.child("uid").getValue();
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            String accountType = ""+ds.child("accountType").getValue();
+                            String address = ""+ds.child("address").getValue();
+                            String city = ""+ds.child("city").getValue();
+                            String state = ""+ds.child("state").getValue();
+                            String country = ""+ds.child("country").getValue();
+                            String email = ""+ds.child("email").getValue();
+                            latitude = Double.parseDouble(""+ds.child("latitude").getValue());
+                            longitude = Double.parseDouble(""+ds.child("longitude").getValue());
+                            String name = ""+ds.child("name").getValue();
+                            String phone = ""+ds.child("phone").getValue();
+                            String profileImage = ""+ds.child("profileImage").getValue();
+                            String timestamp = ""+ds.child("timestamptimestamp").getValue();
+                            String uid = ""+ds.child("uid").getValue();
 
                             nameEt.setText(name);
                             mobleNoEt.setText(phone);
@@ -287,7 +287,8 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
 
                             try {
                                 Picasso.get().load(profileImage).placeholder(R.drawable.ic_store_gray).into(profileIv);
-                            } catch (Exception e) {
+                            }
+                            catch (Exception e){
                                 profileIv.setImageResource(R.drawable.ic_person_gray);
                             }
                         }
@@ -300,32 +301,23 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean checkLocationPermission() {
+    private boolean checkLocationPermission(){
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
                 (PackageManager.PERMISSION_GRANTED);
         return result;
     }
 
-    private void requestLocation() {
+    private void requestLocation(){
         ActivityCompat.requestPermissions(this, locationPermission, LOCATION_REQUEST_CODE);
     }
 
     private void detectLocation() {
         Toast.makeText(this, "Please Wait...", Toast.LENGTH_LONG).show();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
-
+    @Override
     public void onLocationChanged(Location location) {
 
         latitude = location.getLatitude();
@@ -356,17 +348,19 @@ public class ProfileEditBuyerActivity extends AppCompatActivity {
         }
     }
 
+    @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
 
-
+    @Override
     public void onProviderEnabled(String provider) {
 
     }
 
+    @Override
     public void onProviderDisabled(String provider) {
-        Toast.makeText(this, "Please tern on Location...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Please turn on Location...", Toast.LENGTH_SHORT).show();
     }
 
     @Override

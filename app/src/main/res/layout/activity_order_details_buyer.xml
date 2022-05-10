@@ -18,7 +18,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_back_white"
+            android:src="@drawable/ic_back_white"
             android:background="@null" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:id="@+id/writeReviewBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/ic_rate_review_white"
+            android:src="@drawable/ic_rate_review_white"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"/>
@@ -162,7 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="$500"
+                    android:text="₹500"
                     android:textColor="@color/colorBlack" />
             </TableRow>
 

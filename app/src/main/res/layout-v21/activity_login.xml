@@ -1,137 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".LoginActivity">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="141dp"
-        android:layout_height="127dp"
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view2"
+        android:layout_width="172dp"
+        android:layout_height="172dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/userlogin"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/animationone" />
+
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="@string/welcome_to_fresh_carts"
-        android:textColor="#FF6F00"
+        android:textColor="#E12196F3"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="@string/log_in_to_continue"
-        android:textSize="20sp"
-        android:layout_marginTop="5dp"/>
+        android:textSize="20sp" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailEt"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            app:boxStrokeColor="#F57F17"
-            app:hintTextColor="#F57F17">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textColorLink="#FF6F00" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordEt"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            app:boxStrokeColor="#F57F17"
-            app:hintTextColor="#F57F17"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="#000000">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:textColor="#0C0600" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
 
 
-            <Button
-                android:id="@+id/forgetpass"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape"
-                android:elevation="5dp"
-                android:padding="5dp"
-                android:text="@string/forget_password"
-                android:textSize="13sp"
-                app:backgroundTint="@null"
-                tools:targetApi="lollipop">
-            </Button>
-
-            <Button
-                android:id="@+id/loginbtn"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailEt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape"
-                android:elevation="5dp"
-                android:text="@string/log_in"
-                app:backgroundTint="@null"
-                tools:targetApi="lollipop">
+                android:hint="Email"
+                app:boxStrokeColor="#2196F3">
 
-            </Button>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColorLink="#2196F3" />
 
-            <Button
-                android:id="@+id/noAccount"
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordEt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape"
-                android:elevation="5dp"
-                android:text="@string/sign_up"
-                app:backgroundTint="@null"
-                tools:targetApi="lollipop">
+                android:hint="@string/password"
+                app:boxStrokeColor="#2196F3"
+                app:hintTextColor="#2196F3"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#000000">
 
-            </Button>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="#0C0600" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/forgetpass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/forget_password"
+                    android:textSize="15dp">
+
+                </TextView>
+
+
+
+                <Button
+                    android:id="@+id/loginbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape"
+                    android:elevation="5dp"
+                    android:text="@string/log_in"
+                    app:backgroundTint="@null"
+                    tools:targetApi="lollipop">
+
+                </Button>
+
+                <Button
+                    android:id="@+id/noAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape"
+                    android:elevation="5dp"
+                    android:text="@string/sign_up"
+                    app:backgroundTint="@null"
+                    tools:targetApi="lollipop">
+
+                </Button>
+
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
-
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

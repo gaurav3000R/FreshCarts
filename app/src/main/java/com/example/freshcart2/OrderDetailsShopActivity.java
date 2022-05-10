@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.freshcart2.R;
+
 import com.example.freshcart2.adapters.AdapterOrderedItem;
 import com.example.freshcart2.models.ModelOrderedItems;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -144,7 +146,9 @@ public class OrderDetailsShopActivity extends AppCompatActivity {
                         String orderTime = ""+dataSnapshot.child("orderTime").getValue();
                         String orderFrom = ""+dataSnapshot.child("orderFrom").getValue();
 
-                        orderCost = orderCost.replaceAll("\\(.*[\\)]", "").replaceAll(" \\(", "").replaceAll("\\)", "");
+                        orderCost = orderCost.replaceAll("\\(.*[\\)]", "₹").replaceAll(" \\(", "₹").replaceAll("\\)", "₹");
+
+//                        orderCost = orderCost.replaceAll("₹", "").replaceAll("₹", "").replaceAll("₹", "");
 
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(Long.parseLong(orderTime));
@@ -163,7 +167,7 @@ public class OrderDetailsShopActivity extends AppCompatActivity {
                         orderIdTv.setText(orderId);
                         orderStatusTv.setText(orderStatus);
                         double total = Double.parseDouble(orderCost)+Double.parseDouble(deliveryFee);
-                        amountTv.setText("$"+ total +" [including $"+ deliveryFee +" Delivery Fee]");
+                        amountTv.setText("₹"+ total +" [including ₹"+ deliveryFee +" Delivery Fee]");
                         dateTv.setText(formateDate);
 
                         findAddress(buyerLatitude, buyerLongitude);

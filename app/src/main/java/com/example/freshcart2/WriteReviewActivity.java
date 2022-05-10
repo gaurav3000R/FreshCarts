@@ -2,6 +2,7 @@ package com.example.freshcart2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.freshcart2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +28,6 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 
 public class WriteReviewActivity extends AppCompatActivity {
-
 
     String shopUid;
 
@@ -43,8 +44,6 @@ public class WriteReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_review);
-
-
 
         backBtn1 = findViewById(R.id.backBtn1);
         profileIv = findViewById(R.id.profileIV);

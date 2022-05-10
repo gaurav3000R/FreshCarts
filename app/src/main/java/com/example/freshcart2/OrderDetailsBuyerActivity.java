@@ -1,5 +1,6 @@
 package com.example.freshcart2;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,9 +10,11 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 
 import com.example.freshcart2.adapters.AdapterOrderedItem;
 import com.example.freshcart2.models.ModelOrderedItems;
@@ -40,12 +43,10 @@ public class OrderDetailsBuyerActivity extends AppCompatActivity {
     private ArrayList<ModelOrderedItems> orderedItemsArrayList;
     private AdapterOrderedItem adapterOrderedItem;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details_buyer);
-
 
         backBtn = findViewById(R.id.backBtn);
         orderIdTv = findViewById(R.id.orderIdTV);
@@ -146,10 +147,10 @@ public class OrderDetailsBuyerActivity extends AppCompatActivity {
                         orderIdTv.setText(orderId);
                         orderStatusTv.setText(orderStatus);
                         double total = Double.parseDouble(orderCost)+Double.parseDouble(deliveryFee);
-                        amountTv.setText("$"+ total +" [including $"+ deliveryFee +" Delivery Fee]");
+                        amountTv.setText("₹"+ total +" [including ₹"+ deliveryFee +" Delivery Fee]");
                         dateTv.setText(formateDate);
 
-                        findAddress(latitude, longitude);
+//                        findAddress(latitude, longitude);
                     }
 
                     @Override

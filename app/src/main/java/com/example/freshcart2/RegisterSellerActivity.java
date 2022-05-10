@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.freshcart2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -46,10 +47,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class RegisterSellerActivity extends AppCompatActivity {
+public class RegisterSellerActivity extends AppCompatActivity implements LocationListener {
 
     //view
-    private ImageButton backBtn, gpsBtn;
+    private ImageButton backBtn,gpsBtn;
     private ImageView profileIv;
     private Button registerSellerBtn;
     private EditText nameEt, mobleNoEt, countryEt, stateEt, cityEt, streetEt, emailEt, passwordEt, cpasswordEt, shopNameEt, deliveryFeeEt;
@@ -61,10 +62,10 @@ public class RegisterSellerActivity extends AppCompatActivity {
 
     //permission request code
     private static final int LOCATION_REQUEST_CODE = 100;
-    private static final int CAMERA_REQUEST_CODE = 200;
-    private static final int STORAGE_REQUEST_CODE = 300;
-    private static final int IMAGE_PICK_GALLERY_CODE = 400;
-    private static final int IMAGE_PICK_CAMERA_CODE = 500;
+    private static final int CAMERA_REQUEST_CODE =200;
+    private static final int STORAGE_REQUEST_CODE =300;
+    private static final int IMAGE_PICK_GALLERY_CODE =400;
+    private static final int IMAGE_PICK_CAMERA_CODE =500;
 
     private String[] locationPermission;
     private String[] cameraPermission;
@@ -82,7 +83,6 @@ public class RegisterSellerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_seller);
-
 
         //init views
         backBtn = findViewById(R.id.backBtn);
@@ -117,17 +117,17 @@ public class RegisterSellerActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-//        gpsBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                current location
-//                if (checkLocationPermission()) {
-//                    detectLocation();
-//                } else {
-//                    requestLocation();
-//                }
-//            }
-//        });
+        gpsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //current location
+                if (checkLocationPermission()){
+                    detectLocation();
+                }else {
+                    requestLocation();
+                }
+            }
+        });
         profileIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,35 +156,35 @@ public class RegisterSellerActivity extends AppCompatActivity {
         shopName = shopNameEt.getText().toString().trim();
         deliveryFee = deliveryFeeEt.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(name)){
             Toast.makeText(this, "Enter Name...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(shopName)) {
+        if (TextUtils.isEmpty(shopName)){
             Toast.makeText(this, "Enter Shop Name...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(phoneNumber)) {
+        if (TextUtils.isEmpty(phoneNumber)){
             Toast.makeText(this, "Enter Phone Number...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(deliveryFee)) {
+        if (TextUtils.isEmpty(deliveryFee)){
             Toast.makeText(this, "Enter Delivery fee...", Toast.LENGTH_SHORT).show();
             return;
         }
-//        if (latitude == 0.0 && longitude == 0.0) {
+//        if (latitude==0.0 && longitude==0.0 ){
 //            Toast.makeText(this, "Please click gps button to detect location", Toast.LENGTH_SHORT).show();
 //            return;
 //        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toast.makeText(this, "Enter correct email...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (password.length() < 6) {
+        if (password.length()<6){
             Toast.makeText(this, "Pasword must be atleast 6 charecter long...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!password.equals(confermPassword)) {
+        if (!password.equals(confermPassword)){
             Toast.makeText(this, "Pasword doesn't match...", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -206,7 +206,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         mProgressDialog.dismiss();
-                        Toast.makeText(RegisterSellerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterSellerActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -214,26 +214,26 @@ public class RegisterSellerActivity extends AppCompatActivity {
     private void saveFirebaseData() {
         mProgressDialog.setMessage("Saving Account Details..");
 
-        final String timestamp = "" + System.currentTimeMillis();
-        if (image_uri == null) {
+        final String timestamp = ""+System.currentTimeMillis();
+        if (image_uri == null){
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("uid", "" + mAuth.getUid());
-            hashMap.put("email", "" + email);
-            hashMap.put("name", "" + name);
-            hashMap.put("shopName", "" + shopName);
-            hashMap.put("phone", "" + phoneNumber);
-            hashMap.put("deliveryFee", "" + deliveryFee);
-            hashMap.put("country", "" + country);
-            hashMap.put("state", "" + state);
-            hashMap.put("city", "" + city);
-            hashMap.put("address", "" + address);
-            hashMap.put("latitude", "" + latitude);
-            hashMap.put("longitude", "" + longitude);
-            hashMap.put("timestamp", "" + timestamp);
-            hashMap.put("accountType", "Seller");
-            hashMap.put("online", "true");
-            hashMap.put("shopOpen", "true");
-            hashMap.put("profileImage", "");
+            hashMap.put("uid",""+mAuth.getUid());
+            hashMap.put("email",""+email);
+            hashMap.put("name",""+name);
+            hashMap.put("shopName",""+shopName);
+            hashMap.put("phone",""+phoneNumber);
+            hashMap.put("deliveryFee",""+deliveryFee);
+            hashMap.put("country",""+country);
+            hashMap.put("state",""+state);
+            hashMap.put("city",""+city);
+            hashMap.put("address",""+address);
+            hashMap.put("latitude",""+latitude);
+            hashMap.put("longitude",""+longitude);
+            hashMap.put("timestamp",""+timestamp);
+            hashMap.put("accountType","Seller");
+            hashMap.put("online","true");
+            hashMap.put("shopOpen","true");
+            hashMap.put("profileImage","");
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
             ref.child(mAuth.getUid()).setValue(hashMap)
@@ -253,8 +253,8 @@ public class RegisterSellerActivity extends AppCompatActivity {
                             finish();
                         }
                     });
-        } else {
-            String filePathName = "profile_image/" + "" + mAuth.getUid();
+        }else {
+            String filePathName = "profile_image/" + ""+mAuth.getUid();
 
             StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathName);
             storageReference.putFile(image_uri)
@@ -262,28 +262,28 @@ public class RegisterSellerActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!uriTask.isSuccessful()) ;
+                            while (!uriTask.isSuccessful());
                             Uri downlodImageUri = uriTask.getResult();
 
-                            if (uriTask.isSuccessful()) {
+                            if (uriTask.isSuccessful()){
                                 HashMap<String, Object> hashMap = new HashMap<>();
-                                hashMap.put("uid", "" + mAuth.getUid());
-                                hashMap.put("email", "" + email);
-                                hashMap.put("name", "" + name);
-                                hashMap.put("shopName", "" + shopName);
-                                hashMap.put("phone", "" + phoneNumber);
-                                hashMap.put("deliveryFee", "" + deliveryFee);
-                                hashMap.put("country", "" + country);
-                                hashMap.put("state", "" + state);
-                                hashMap.put("city", "" + city);
-                                hashMap.put("address", "" + address);
-                                hashMap.put("latitude", "" + latitude);
-                                hashMap.put("longitude", "" + longitude);
-                                hashMap.put("timestamp", "" + timestamp);
-                                hashMap.put("accountType", "Seller");
-                                hashMap.put("online", "true");
-                                hashMap.put("shopOpen", "true");
-                                hashMap.put("profileImage", "" + downlodImageUri);
+                                hashMap.put("uid",""+mAuth.getUid());
+                                hashMap.put("email",""+email);
+                                hashMap.put("name",""+name);
+                                hashMap.put("shopName",""+shopName);
+                                hashMap.put("phone",""+phoneNumber);
+                                hashMap.put("deliveryFee",""+deliveryFee);
+                                hashMap.put("country",""+country);
+                                hashMap.put("state",""+state);
+                                hashMap.put("city",""+city);
+                                hashMap.put("address",""+address);
+                                hashMap.put("latitude",""+latitude);
+                                hashMap.put("longitude",""+longitude);
+                                hashMap.put("timestamp",""+timestamp);
+                                hashMap.put("accountType","Seller");
+                                hashMap.put("online","true");
+                                hashMap.put("shopOpen","true");
+                                hashMap.put("profileImage",""+downlodImageUri);
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
                                 ref.child(mAuth.getUid()).setValue(hashMap)
@@ -310,7 +310,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             mProgressDialog.dismiss();
-                            Toast.makeText(RegisterSellerActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterSellerActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -324,16 +324,18 @@ public class RegisterSellerActivity extends AppCompatActivity {
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            if (checkCameraPermission()) {
+                        if (which==0){
+                            if (checkCameraPermission()){
                                 pickFromCamera();
-                            } else {
+                            }
+                            else {
                                 requestCameraPermission();
                             }
-                        } else {
-                            if (checkStoragePermission()) {
+                        }else {
+                            if (checkStoragePermission()){
                                 pickFromGalery();
-                            } else {
+                            }
+                            else {
                                 requestStoragePermission();
                             }
                         }
@@ -341,13 +343,13 @@ public class RegisterSellerActivity extends AppCompatActivity {
                 }).show();
     }
 
-    private void pickFromGalery() {
+    private void pickFromGalery(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    private void pickFromCamera() {
+    private void pickFromCamera(){
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.TITLE, "Temp_Image_Title");
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image_Description");
@@ -358,33 +360,33 @@ public class RegisterSellerActivity extends AppCompatActivity {
         startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
     }
 
-    private boolean checkLocationPermission() {
+    private boolean checkLocationPermission(){
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
                 (PackageManager.PERMISSION_GRANTED);
         return result;
     }
 
-    private void requestLocation() {
+    private void requestLocation(){
         ActivityCompat.requestPermissions(this, locationPermission, LOCATION_REQUEST_CODE);
     }
 
-//    @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case LOCATION_REQUEST_CODE: {
-//                if (grantResults.length > 0) {
-//                    boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-//                    if (locationAccepted) {
+        switch (requestCode){
+            case  LOCATION_REQUEST_CODE:{
+                if (grantResults.length>0){
+                    boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (locationAccepted){
                         //permission allowed
-//                        detectLocation();
-//                    } else {
+                        detectLocation();
+                    }else {
                         //permission denied
-//                        Toast.makeText(this, "Location Permission is required...", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
+                        Toast.makeText(this, "Location Permission is required...", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
             break;
-            case CAMERA_REQUEST_CODE: {
+            case CAMERA_REQUEST_CODE:{
                 if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
@@ -397,7 +399,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
             }
             break;
 
-            case STORAGE_REQUEST_CODE: {
+            case STORAGE_REQUEST_CODE:{
                 if (grantResults.length > 0) {
                     boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (storageAccepted) {
@@ -415,11 +417,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
     private void detectLocation() {
         Toast.makeText(this, "Please Wait...", Toast.LENGTH_LONG).show();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
     private boolean checkStoragePermission(){
@@ -447,6 +445,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, cameraPermission, CAMERA_REQUEST_CODE);
     }
 
+    @Override
     public void onLocationChanged(Location location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
@@ -476,16 +475,17 @@ public class RegisterSellerActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
 
-//    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
 
-//    }
-
+    @Override
     public void onProviderEnabled(String provider) {
 
     }
 
-
+    @Override
     public void onProviderDisabled(String provider) {
         Toast.makeText(this, "Please tern on Location...", Toast.LENGTH_SHORT).show();
     }
@@ -504,5 +504,3 @@ public class RegisterSellerActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 }
-
-

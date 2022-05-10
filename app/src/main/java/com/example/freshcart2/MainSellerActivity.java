@@ -19,10 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.freshcart2.adapters.AdapterOrderShop;
 import com.example.freshcart2.adapters.AdapterProductSeller;
-import com.example.freshcart2.models.ModelOrderShop;
-import com.example.freshcart2.models.ModelProduct;
+import com.example.freshcart2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,18 +49,16 @@ public class MainSellerActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressDialog mProgressDialog;
 
-    private ArrayList<ModelProduct> productList;
+    private ArrayList<com.example.freshcart2.models.ModelProduct> productList;
     private AdapterProductSeller adapterProductSeller;
 
-    private ArrayList<ModelOrderShop> orderShopArrayList;
+    private ArrayList<com.example.freshcart2.models.ModelOrderShop> orderShopArrayList;
     private AdapterOrderShop adapterOrderShop;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_seller);
-
 
         mAuth = FirebaseAuth.getInstance();
         mProgressDialog = new ProgressDialog(this);
@@ -105,7 +103,7 @@ public class MainSellerActivity extends AppCompatActivity {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainSellerActivity.this, ProfileEditSellerActivity.class));
+                startActivity(new Intent(MainSellerActivity.this, com.example.freshcart2.ProfileEditSellerActivity.class));
             }
         });
 
@@ -199,7 +197,7 @@ public class MainSellerActivity extends AppCompatActivity {
         reviewsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainSellerActivity.this, ShopReviewActivity.class);
+                Intent intent = new Intent(MainSellerActivity.this, com.example.freshcart2.ShopReviewActivity.class);
                 intent.putExtra("shopId", mAuth.getUid());
                 startActivity(intent);
             }
@@ -217,7 +215,7 @@ public class MainSellerActivity extends AppCompatActivity {
 
                         orderShopArrayList.clear();
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            ModelOrderShop modelOrderShop = ds.getValue(ModelOrderShop.class);
+                            com.example.freshcart2.models.ModelOrderShop modelOrderShop = ds.getValue(com.example.freshcart2.models.ModelOrderShop.class);
                             orderShopArrayList.add(modelOrderShop);
                         }
                         adapterOrderShop = new AdapterOrderShop(MainSellerActivity.this, orderShopArrayList);
@@ -244,7 +242,7 @@ public class MainSellerActivity extends AppCompatActivity {
 
                             String productCategory = ""+ds.child("prductCategory").getValue();
                             if (selected.equals(productCategory)){
-                                ModelProduct modelProduct = ds.getValue(ModelProduct.class);
+                                com.example.freshcart2.models.ModelProduct modelProduct = ds.getValue(com.example.freshcart2.models.ModelProduct.class);
                                 productList.add(modelProduct);
                             }
                         }
@@ -270,7 +268,7 @@ public class MainSellerActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         productList.clear();
                         for (DataSnapshot ds : dataSnapshot.getChildren()){
-                            ModelProduct modelProduct = ds.getValue(ModelProduct.class);
+                            com.example.freshcart2.models.ModelProduct modelProduct = ds.getValue(com.example.freshcart2.models.ModelProduct.class);
                             productList.add(modelProduct);
                         }
                         adapterProductSeller = new AdapterProductSeller(MainSellerActivity.this, productList);

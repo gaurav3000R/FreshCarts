@@ -32,12 +32,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/orderIdTV"
             android:text="Shop Name"/>
+
         <TextView
             android:id="@+id/amountTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/shopNameTV"
-            android:text="Total Amount: $32.44"/>
+            android:text="Total Amount: ₹ 32.44" />
         <TextView
             android:id="@+id/orderStatusTV"
             android:layout_width="wrap_content"

@@ -2,7 +2,6 @@ package com.example.freshcart2;
 
 import android.widget.Filter;
 
-
 import com.example.freshcart2.adapters.AdapterProductSeller;
 import com.example.freshcart2.models.ModelProduct;
 
@@ -13,10 +12,11 @@ public class FilterProduct extends Filter {
     private AdapterProductSeller adapter;
     private ArrayList<ModelProduct> filterList;
 
-    public FilterProduct(AdapterProductSeller adapter, ArrayList<ModelProduct> filterList){
-        this.adapter = adapter;
+    public FilterProduct(AdapterProductSeller adapterProductSeller, ArrayList<ModelProduct> filterList){
+        this.adapter = adapterProductSeller;
         this.filterList = filterList;
     }
+
 
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {

@@ -41,9 +41,9 @@
             android:id="@+id/amountTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total amount: $123.23"
             android:layout_below="@id/emailTV"
-            android:textColor="@color/colorGray02"/>
+            android:text="Total amount: ₹ 123.23"
+            android:textColor="@color/colorGray02" />
 
         <TextView
             android:id="@+id/orderStatusTV"

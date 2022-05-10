@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+
+import com.example.freshcart2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,13 +30,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private String email;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
-
 
         femailTv = findViewById(R.id.femailET);
         recoverBtn = findViewById(R.id.recoverBtn);
@@ -86,6 +85,3 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 });
     }
 }
-
-
-

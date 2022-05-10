@@ -10,12 +10,13 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.freshcart2.R;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,10 +32,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
+
     //viwes
 //    private TextView fotgotTv, noAccountTv, iconText;
-    private Button loginBtn,fotgotTv, noAccountTv;
-//    private ImageView iconShopIv;
+    private TextView fotgotTv;
+    private Button loginBtn, noAccountTv;
+    //    private ImageView iconShopIv;
     private TextInputEditText emailEt, passwordEt;
 
     private String email, password;
@@ -73,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         noAccountTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterBuyerActivity.class));
+                startActivity(new Intent(LoginActivity.this, com.example.freshcart2.RegisterBuyerActivity.class));
                 finish();
             }
         });
@@ -151,14 +154,13 @@ public class LoginActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()){
-                            String accountType = ""+ds.child("accountType").getValue();
-                            if(accountType.equals("Seller")){
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String accountType = "" + ds.child("accountType").getValue();
+                            if (accountType.equals("Seller")) {
                                 mProgressDialog.dismiss();
-                                startActivity(new Intent(LoginActivity.this, MainSellerActivity.class));
+                                startActivity(new Intent(LoginActivity.this, com.example.freshcart2.MainSellerActivity.class));
                                 finish();
-                            }
-                            else{
+                            } else {
                                 mProgressDialog.dismiss();
                                 startActivity(new Intent(LoginActivity.this, MainBuyerActivity.class));
                                 finish();

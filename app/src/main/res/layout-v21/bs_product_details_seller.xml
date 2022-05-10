@@ -23,10 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:text="Product Delails"
-            android:textStyle="bold"
+            android:text="Product Details"
+            android:textColor="@color/colorWhite"
             android:textSize="24dp"
-            android:textColor="@color/colorWhite" />
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/deleteBtn"
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:text="$10"
+                android:text="₹ 10"
                 android:textColor="@color/colorGray02" />
 
             <TextView
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/discountPriceTV"
                 android:layout_toRightOf="@id/discountPriceTV"
-                android:text="$20"
+                android:text="₹ 20"
                 android:textColor="@color/colorGray02" />
 
         </RelativeLayout>

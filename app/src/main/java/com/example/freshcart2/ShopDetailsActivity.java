@@ -19,8 +19,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.example.freshcart2.R;
 import com.example.freshcart2.adapters.AdapterProductBuyer;
-import com.example.freshcart2.models.ModelProduct;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,8 +49,9 @@ public class ShopDetailsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private ArrayList<ModelProduct> productList;
+    private ArrayList<com.example.freshcart2.models.ModelProduct> productList;
     private AdapterProductBuyer adapterProductBuyer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +160,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
         reviewsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShopDetailsActivity.this, ShopReviewActivity.class);
+                Intent intent = new Intent(ShopDetailsActivity.this, com.example.freshcart2.ShopReviewActivity.class);
                 intent.putExtra("shopId", shopUid);
                 startActivity(intent);
             }
@@ -213,7 +216,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
 
                         productList.clear();
                         for (DataSnapshot ds : dataSnapshot.getChildren()){
-                            ModelProduct modelProduct = ds.getValue(ModelProduct.class);
+                            com.example.freshcart2.models.ModelProduct modelProduct = ds.getValue(com.example.freshcart2.models.ModelProduct.class);
                             productList.add(modelProduct);
                         }
                         adapterProductBuyer = new AdapterProductBuyer(ShopDetailsActivity.this, productList);
@@ -246,7 +249,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
 
                 shopNameTv.setText(shopName);
                 emailTv.setText(shopEmail);
-                deliveryFeeTv.setText("Delivery Fee: $"+deliveryFee);
+                deliveryFeeTv.setText("Delivery Fee: ₹"+deliveryFee);
                 addressTv.setText(shopAddress);
                 phoneTv.setText(shopPhone);
                 if (shopOpen.equals("true")){

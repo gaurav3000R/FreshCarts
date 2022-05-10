@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.freshcart2.R;
 import com.example.freshcart2.adapters.AdapterReview;
-import com.example.freshcart2.models.ModelReview;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,12 +21,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ShopReviewActivity extends AppCompatActivity {
 
     private String shopId;
-    private ArrayList<ModelReview> reviewArrayList;
+    private ArrayList<com.example.freshcart2.models.ModelReview> reviewArrayList;
     private AdapterReview adapterReview;
 
     FirebaseAuth mAuth;
@@ -41,7 +43,6 @@ public class ShopReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_review);
-
 
         shopId = getIntent().getStringExtra("shopId");
 
@@ -79,7 +80,7 @@ public class ShopReviewActivity extends AppCompatActivity {
                             float rating = Float.parseFloat(""+ds.child("ratings").getValue());
                             ratingSum = ratingSum+rating;
 
-                            ModelReview modelReview = ds.getValue(ModelReview.class);
+                            com.example.freshcart2.models.ModelReview modelReview = ds.getValue(com.example.freshcart2.models.ModelReview.class);
                             reviewArrayList.add(modelReview);
                         }
 
@@ -103,27 +104,25 @@ public class ShopReviewActivity extends AppCompatActivity {
     private void loadShopDetails() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.child(shopId)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String shopName = ""+dataSnapshot.child("shopName").getValue();
-                        String profileImage = ""+dataSnapshot.child("profileImage").getValue();
+        .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String shopName = ""+dataSnapshot.child("shopName").getValue();
+                String profileImage = ""+dataSnapshot.child("profileImage").getValue();
 
-                        shopNameTv.setText(shopName);
-                        try {
-                            Picasso.get().load(profileImage).placeholder(R.drawable.ic_store_gray).into(profileIv);
-                        }
-                        catch (Exception e) {
-                            profileIv.setImageResource(R.drawable.ic_store_gray);
-                        }
-                    }
+                shopNameTv.setText(shopName);
+                try {
+                    Picasso.get().load(profileImage).placeholder(R.drawable.ic_store_gray).into(profileIv);
+                }
+                catch (Exception e) {
+                    profileIv.setImageResource(R.drawable.ic_store_gray);
+                }
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+            }
+        });
     }
 }
-
-

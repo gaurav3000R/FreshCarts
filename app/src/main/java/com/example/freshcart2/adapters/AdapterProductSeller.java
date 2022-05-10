@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.freshcart2.EditProductActivity;
 import com.example.freshcart2.FilterProduct;
 import com.example.freshcart2.R;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 
 public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSeller.HolderProductSeller> implements Filterable {
 
-    private Context context;
+    private android.content.Context context;
     public ArrayList<ModelProduct> productList, filterList;
     private FilterProduct filter;
 
@@ -71,8 +72,8 @@ public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSel
         holder.titleTv.setText(productTitle);
         holder.quantityTv.setText(productQuantity);
         holder.discountPercentTv.setText(discountPer);
-        holder.discountedPriceTv.setText("$ "+discountPrice);
-        holder.orignalPriceTv.setText("$ "+orignalPrice);
+        holder.discountedPriceTv.setText("₹ "+discountPrice);
+        holder.orignalPriceTv.setText("₹ "+orignalPrice);
         if (discountAvailable.equals("true")){
             holder.discountedPriceTv.setVisibility(View.VISIBLE);
             holder.discountPercentTv.setVisibility(View.VISIBLE);
@@ -134,8 +135,8 @@ public class AdapterProductSeller extends RecyclerView.Adapter<AdapterProductSel
         quantityTv.setText(productQuantity);
         categoryTv.setText(productCategory);
         discountPerTv.setText(discountPer);
-        discountPriceTv.setText("$"+discountPrice);
-        orignalPriceTv.setText("$"+orignalPrice);
+        discountPriceTv.setText("₹"+discountPrice);
+        orignalPriceTv.setText("₹"+orignalPrice);
 
         if (discountAvailable.equals("true")){
             discountPriceTv.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package com.example.freshcart2.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,13 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.freshcart2.FilterProductBuyer;
 import com.example.freshcart2.R;
@@ -30,7 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuyer.HolderAdapterBuyer> implements Filterable {
+public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuyer.HolderAdapterBuyer> implements Filterable{
 
     private Context context;
     public ArrayList<ModelProduct> productList, filterList;
@@ -71,8 +74,8 @@ public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuye
         holder.titleTv.setText(productTitle);
         holder.discountPercentTv.setText(discountPercent);
         holder.descriptionTv.setText(productDescription);
-        holder.orignalPriceTv.setText("$"+orignalPrice);
-        holder.discountPriceTv.setText("$"+discountPrice);
+        holder.orignalPriceTv.setText("₹ "+orignalPrice);
+        holder.discountPriceTv.setText("₹ "+discountPrice);
         if (discountAvailable.equals("true")){
             holder.discountPriceTv.setVisibility(View.VISIBLE);
             holder.discountPercentTv.setVisibility(View.VISIBLE);
@@ -147,9 +150,9 @@ public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuye
             discountPriceTV.setVisibility(View.GONE);
             price = modelProduct.getOrignalPrice();
         }
-        cost = Double.parseDouble(price.replaceAll("$", ""));
-        finalCost = Double.parseDouble(price.replaceAll("$", ""));
-        actualFinalCost = Double.parseDouble(orgnalPrice.replaceAll("$", ""));
+        cost = Double.parseDouble(price.replaceAll("₹", ""));
+        finalCost = Double.parseDouble(price.replaceAll("₹", ""));
+        actualFinalCost = Double.parseDouble(orgnalPrice.replaceAll("₹", ""));
         quantity = 1;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -166,9 +169,9 @@ public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuye
         descriptionTV.setText(""+description);
         discountPercentTV.setText(""+discountPercent);
         quantityTV.setText(""+quantity);
-        orignalPriceTV.setText("$"+modelProduct.getOrignalPrice());
-        discountPriceTV.setText("$"+modelProduct.getDiscountPrice());
-        finalPriceTV.setText("$"+finalCost);
+        orignalPriceTV.setText("₹"+modelProduct.getOrignalPrice());
+        discountPriceTV.setText("₹"+modelProduct.getDiscountPrice());
+        finalPriceTV.setText("₹"+finalCost);
 
         final AlertDialog dialog = builder.create();
         dialog.show();
@@ -180,7 +183,7 @@ public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuye
                 actualFinalCost = Double.parseDouble(orgnalPrice)+ actualFinalCost;
                 quantity++;
 
-                finalPriceTV.setText("$"+finalCost);
+                finalPriceTV.setText("₹"+finalCost);
                 quantityTV.setText(""+quantity);
             }
         });
@@ -193,7 +196,7 @@ public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuye
                     actualFinalCost = actualFinalCost - Double.parseDouble(orgnalPrice);
                     quantity--;
 
-                    finalPriceTV.setText("$" + finalCost);
+                    finalPriceTV.setText("₹" + finalCost);
                     quantityTV.setText("" + quantity);
                 }
             }
@@ -205,7 +208,7 @@ public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuye
                 String title = titleTV.getText().toString().trim();
                 String price = finalPriceTV.getText().toString().trim().replace("", "");
                 String quantity = quantityTV.getText().toString().trim();
-                String actualPrice = "$" + actualFinalCost;
+                String actualPrice = "₹" + actualFinalCost;
 
                 addToCart(productId, title, price, quantity, image, discountPercent, discountAvailable, category, actualPrice, shopId);
                 dialog.dismiss();
@@ -213,7 +216,7 @@ public class AdapterProductBuyer extends RecyclerView.Adapter<AdapterProductBuye
         });
     }
 
-    private void addToCart(String productId, String title, String price, String quantity, String image_uri,
+    private void addToCart(String productId, String title,  String price, String quantity, String image_uri,
                            String discountPercent, String discountAvailable, String productCategory, String actualFinalPrice, String shopId) {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

@@ -75,9 +75,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="$10"
-                        android:textSize="20dp"
-                        android:textColor="@color/colorBlack" />
+                        android:text="₹ 10"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/orignalPriceTV"
@@ -87,7 +87,7 @@
                         android:layout_toEndOf="@id/discountPriceTV"
                         android:layout_toRightOf="@id/discountPriceTV"
                         android:paddingTop="6dp"
-                        android:text="$ 20"
+                        android:text="₹ 20"
                         android:textColor="@color/colorGray02" />
                     <TextView
                         android:id="@+id/discountPercentTV"

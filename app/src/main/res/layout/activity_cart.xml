@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,17 +19,16 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:background="@null"
-            app:srcCompat="@drawable/ic_back_white"
-            android:contentDescription="TODO" />
+            android:src="@drawable/ic_back_white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/cart"
+            android:text="Cart"
             android:textColor="@color/colorWhite"
-            android:textSize="24sp"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -40,9 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:text="@string/cart_is_empty"
+        android:text="Cart is Empty"
         android:textColor="@color/colorBlack"
-        android:textSize="24sp" />
+        android:textSize="24dp" />
 
     <ScrollView
         android:id="@+id/sv"
@@ -54,16 +53,13 @@
         <RelativeLayout
             android:id="@+id/shopRL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RL1">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cartItemRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="-1dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/row_product_cart" />
 
@@ -83,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/view01"
-                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="40dp">
 
@@ -91,9 +87,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/price_details"
+                        android:text="Price Details"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textColor="@color/colorGray01"/>
                 </TableRow>
 
@@ -101,45 +97,45 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/price"
-                        android:textSize="15sp"
+                        android:text="Price"
+                        android:textSize="15dp"
                         android:textColor="@color/colorBlack"/>
                     <TextView
                         android:id="@+id/detailCost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_00_0"
-                        android:textSize="15sp"
+                        android:text="â‚¹00.0"
+                        android:textSize="15dp"
                         android:textColor="@color/colorBlack"/>
                 </TableRow>
                 <TableRow>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/delivery_fee"
-                        android:textSize="15sp"
+                        android:text="Delivery Fee"
+                        android:textSize="15dp"
                         android:textColor="@color/colorBlack"/>
                     <TextView
                         android:id="@+id/detailDelivery"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_00_0"
-                        android:textSize="15sp"
+                        android:text="â‚¹00.0"
+                        android:textSize="15dp"
                         android:textColor="@color/colorBlack"/>
                 </TableRow>
                 <TableRow>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/total_amount"
-                        android:textSize="15sp"
+                        android:text="Total Amount"
+                        android:textSize="15dp"
                         android:textColor="@color/colorBlack"/>
                     <TextView
                         android:id="@+id/detailTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/_00_0"
-                        android:textSize="15sp"
+                        android:text="â‚¹00.0"
+                        android:textSize="15dp"
                         android:textColor="@color/colorBlack"/>
                 </TableRow>
 
@@ -167,30 +163,29 @@
         android:layout_margin="5dp"
         android:orientation="horizontal"
         android:elevation="6dp"
-        android:padding="2dp"
-        tools:targetApi="lollipop">
+        android:padding="2dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:layout_marginStart="20dp">
+            android:layout_marginLeft="20dp">
 
             <TextView
                 android:id="@+id/grandTotalTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_00_00"
+                android:text="â‚¹00.00"
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp" />
+                android:textSize="18dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cart_items_price"
+                android:text="Cart Items Price"
                 android:textColor="@color/colorBlack"
-                android:textSize="11sp" />
+                android:textSize="11dp" />
 
         </LinearLayout>
 
@@ -203,9 +198,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="2dp"
             android:minWidth="120dp"
-            android:background="@drawable/shape_rect06"
             android:padding="5dp"
-            android:text="@string/place_order"
+            android:text="Place Order"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>

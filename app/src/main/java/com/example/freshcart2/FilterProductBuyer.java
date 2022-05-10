@@ -2,7 +2,6 @@ package com.example.freshcart2;
 
 import android.widget.Filter;
 
-
 import com.example.freshcart2.adapters.AdapterProductBuyer;
 import com.example.freshcart2.models.ModelProduct;
 
@@ -13,7 +12,12 @@ public class FilterProductBuyer extends Filter {
     private AdapterProductBuyer adapter;
     private ArrayList<ModelProduct> filterList;
 
-    public FilterProductBuyer(AdapterProductBuyer adapter, ArrayList<ModelProduct> filterList){
+//    public FilterProductBuyer(AdapterProductBuyer adapter, ArrayList<ModelProduct> filterList){
+//        this.adapter = adapter;
+//        this.filterList = filterList;
+//    }
+
+    public FilterProductBuyer(AdapterProductBuyer  adapter, ArrayList<ModelProduct> filterList) {
         this.adapter = adapter;
         this.filterList = filterList;
     }

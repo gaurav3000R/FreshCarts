@@ -2,7 +2,6 @@ package com.example.freshcart2;
 
 import android.widget.Filter;
 
-
 import com.example.freshcart2.adapters.AdapterOrderShop;
 import com.example.freshcart2.models.ModelOrderShop;
 

@@ -3,7 +3,6 @@ package com.example.freshcart2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.freshcart2.R;
 import com.example.freshcart2.adapters.AdapterCart;
 import com.example.freshcart2.models.ModelCart;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
 import java.util.Map;
 
 public class CartActivity extends AppCompatActivity {
@@ -43,7 +44,6 @@ public class CartActivity extends AppCompatActivity {
 
     private ArrayList<ModelCart> cartProductList;
     private AdapterCart mAdapterCart;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +89,12 @@ public class CartActivity extends AppCompatActivity {
                     return;
                 }
 
-                Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                Intent intent = new Intent(CartActivity.this,PaymentActivity.class);
                 intent.putExtra("ShopId", shopId);
-                intent.putExtra("Latitude", myLatitude);
-                intent.putExtra("Longitude", myLongitude);
+//                intent.putExtra("Latitude", myLatitude);
+//                intent.putExtra("Longitude", myLongitude);
+
+//                comments
 //                int upiTotal = Integer.parseInt(grandTotal.getText().toString())+Integer.valueOf(deliveryFee);
 //                Log.d("upiTotal", upiTotal+"");
                 intent.putExtra("GrandTotal", grandTotal.getText().toString().trim());
@@ -164,7 +166,7 @@ public class CartActivity extends AppCompatActivity {
                     cartIsEmpty.setVisibility(View.GONE);
                     grandTotalPrice((Map<String, Object>) dataSnapshot.getValue());
                 } else {
-                    grandTotal.setText("$0");
+                    grandTotal.setText("₹0");
                     cartIsEmpty.setVisibility(View.VISIBLE);
                     placeOrder.setVisibility(View.GONE);
                     tableLayout.setVisibility(View.GONE);
@@ -190,29 +192,28 @@ public class CartActivity extends AppCompatActivity {
             total.add((String) singleUser.get("finalPrice"));
         }
         for (int i = 0; i < total.size(); i++) {
-            total.set(i, total.get(i).replace("$", ""));
+            total.set(i, total.get(i).replace("₹", ""));
             sum += Double.parseDouble(total.get(i));
         }
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         final Double finalSum = sum;
         ref.child(shopId)
                 .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        deliveryFee = ""+dataSnapshot.child("deliveryFee").getValue();
-                        Log.d("delivery fee", deliveryFee);
-                        detailDelivery.setText("$"+deliveryFee);
-                        detailTotals[0] = finalSum + Double.parseDouble(deliveryFee);
-                        detailTotal.setText(String.valueOf(detailTotals[0]));
-                    }
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                deliveryFee = ""+dataSnapshot.child("deliveryFee").getValue();
+                Log.d("delivery fee", deliveryFee);
+                detailDelivery.setText("₹"+deliveryFee);
+                detailTotals[0] = finalSum + Double.parseDouble(deliveryFee);
+                detailTotal.setText(String.valueOf(detailTotals[0]));
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-        detailCost.setText("$"+sum);
-        grandTotal.setText("$"+String.valueOf(sum)+ " "+"(" + total.size()+")");
+            }
+        });
+        detailCost.setText("₹"+sum);
+        grandTotal.setText("₹"+String.valueOf(sum)+ " "+"(" + total.size()+")");
     }
 }
-

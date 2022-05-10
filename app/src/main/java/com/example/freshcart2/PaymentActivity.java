@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.freshcart2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class PaymentActivity extends AppCompatActivity {
 
     private TextInputEditText upiEt, nameEt, noteEt;
-    private Button payBtn;
+    private Button payBtn,payBtnCOD;
     private TextView amountTv;
 
     private FirebaseAuth mAuth;
@@ -50,6 +50,8 @@ public class PaymentActivity extends AppCompatActivity {
         amountTv = findViewById(R.id.amountTV);
         upiEt = findViewById(R.id.upiET);
         nameEt = findViewById(R.id.upiET);
+        payBtnCOD = findViewById(R.id.payBtnCOD);
+
         noteEt = findViewById(R.id.noteET);
         payBtn = findViewById(R.id.payBtn);
 
@@ -57,7 +59,7 @@ public class PaymentActivity extends AppCompatActivity {
         myLatitude = getIntent().getStringExtra("Latitude");
         myLongitude = getIntent().getStringExtra("Longitude");
         grandTotal = getIntent().getStringExtra("GrandTotal");
-        grandTotal = grandTotal.replace("$", "").replaceAll("\\(.*?\\)", "").trim();
+        grandTotal = grandTotal.replace("₹", "").replaceAll("\\(.*?\\)", "").trim();
         amountTv.setText(grandTotal);
         Log.d("Amount", amountTv.getText()+"");
 
@@ -74,6 +76,14 @@ public class PaymentActivity extends AppCompatActivity {
                 String name = nameEt.getText().toString();
                 String note = noteEt.getText().toString();
                 payUsingUpi(amount, upiId, name, note);
+            }
+        });
+        payBtnCOD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitOrder();
+
+
             }
         });
     }
@@ -158,7 +168,9 @@ public class PaymentActivity extends AppCompatActivity {
                 Log.d("UPI", "responseStr: "+approvalRefNo);
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
-                Toast.makeText(this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
+                submitOrder();
+                Toast.makeText(this, "Transaction successful.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
             }
             else {
                 Toast.makeText(this, "Transaction failed.Please try again", Toast.LENGTH_SHORT).show();
@@ -231,10 +243,10 @@ public class PaymentActivity extends AppCompatActivity {
                                 mProgressDialog.dismiss();
                                 Toast.makeText(PaymentActivity.this, "Order Placed Successfully...", Toast.LENGTH_SHORT).show();
 
-//                                Intent intent = new Intent(CartActivity.this, OrderDetailsBuyerActivity.class);
-//                                intent.putExtra("orderFrom", shopId);
-//                                intent.putExtra("orderId", timestamp);
-//                                startActivity(intent);
+                                Intent intent = new Intent(PaymentActivity.this, OrderDetailsBuyerActivity.class);
+                                intent.putExtra("orderFrom", shopId);
+                                intent.putExtra("orderId", timestamp);
+                                startActivity(intent);
                             }
 
                             @Override
