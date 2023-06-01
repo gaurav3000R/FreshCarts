@@ -10,4 +10,3 @@
 ![Screen short pdf-09](https://user-images.githubusercontent.com/88130000/167598526-2d09ac57-4952-4a54-923b-33a918008209.png)
 ![Screen short pdf-10](https://user-images.githubusercontent.com/88130000/167598533-6836afa8-4c76-4c9e-8919-7df40cf937c8.png)
 ![Screen short pdf-11](https://user-images.githubusercontent.com/88130000/167598540-33417cc0-d5c5-44e7-a58e-7e186ed99bfe.png)
-![wallpaperflare com_wallpaper](https://github.com/gaurav3000R/FreshCarts/assets/88130000/4f961a94-4ba8-46d1-b751-4ad0abfeeabc)
