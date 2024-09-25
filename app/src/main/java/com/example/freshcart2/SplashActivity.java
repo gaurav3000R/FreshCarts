@@ -2,6 +2,8 @@ package com.example.freshcart2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
     TextView iconText;
     Animation leftAnimation, bottomAnimation, topAnimation;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
